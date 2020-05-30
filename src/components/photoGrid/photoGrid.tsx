@@ -1,10 +1,15 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useRef, useState, useCallback } from 'react';
 import Photo from '../photo';
 import PhotoData from '../../services/flicker/types/photo';
 import { useMediaQuery, useTheme, makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../../store';
+import { debounce } from 'lodash';
 import { loadMorePhotos } from '../../store/photos/actions';
+import { isEqual } from 'lodash';
+import useMeasure from './hook';
+import { Masonry } from '../masonry/masonry';
+import Spinner from '../spinner';
 
 const useStyles = makeStyles(
   createStyles({
@@ -112,30 +117,34 @@ function useNoRecordsFound() {
 }
 
 const PhotoGrid: React.FC = () => {
-  useLoadMore();
-  const rows = useRows();
-  const photosByRows = usePhotosByRows(rows);
-  const classes = useStyles();
-  const noRecordsFound = useNoRecordsFound();
+  const { photos, isLoading } = useSelector((state: AppState) => state.photos);
+  const query = useSelector((state: AppState) => state.photos.query);
 
+  const classes = useStyles();
+  const hasMore = useSelector((state: AppState) => state.photos.hasMore);
+  const dispatch = useDispatch();
   return (
     <div className={classes.root} >
-      {noRecordsFound && <Typography variant="h6">{'No records found'}</Typography>}
+      {false && <Typography variant="h6">{'No records found'}</Typography>}
       <Grid spacing={0} container  >
-        {photosByRows.map((photosByRow, rowNumber) =>
-          <Grid
-            item
-            key={rowNumber.toString()}
-            // @ts-ignore
-            xs={12 / rows}
-          >
-            {photosByRow.map((photo) =>
-              <Photo key={photo.id} photo={photo} />
-            )}
-          </Grid>
-        )}
+        <Masonry
+          after={(isProccessing) => ((isProccessing || isLoading) && <Spinner />)}
+          onLoadMore={() => {
+            dispatch(loadMorePhotos());
+          }}
+          hasMore={hasMore}
+          query={query}
+          length={photos.length}
+        >
+          {
+            (index) => (
+              <Photo isVisible photo={photos[index]} />
+            )
+          }
+        </Masonry>
       </Grid>
     </div>
+
   );
 }
 

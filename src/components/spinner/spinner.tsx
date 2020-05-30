@@ -5,6 +5,7 @@ const useStyles = makeStyles(
   createStyles({
     root: {
       padding: '5px 0',
+      width: '100%'
     }
   }),
 );

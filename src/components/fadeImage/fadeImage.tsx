@@ -1,34 +1,26 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import Fade from '@material-ui/core/Fade';
 
 interface Props {
   src: string;
   className?: string;
   alt?: string;
+  visible: boolean;
 }
 
-const FadeImage: React.FC<Props> = ({ src, className, alt }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const mounted = useRef(false);
-  useEffect(() => {
-    // source changed
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      // source changed
-      setIsLoaded(false);
-    }
-  }, [src]);
+const FadeImage: React.FC<Props> = ({ src, className, alt, visible }) => {
 
   return (
-    <Fade in={isLoaded}>
+    <Fade in>
       <img
+        onLoad={(event) => {
+          console.log(event.currentTarget.height);
+          console.log(event.currentTarget.width);
+        }}
+        style={{ width: '100%' }}
         className={className}
         src={src}
         alt={alt}
-        onLoad={() => {
-          setIsLoaded(true);
-        }}
       />
     </Fade>
   );

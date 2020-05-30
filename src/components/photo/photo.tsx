@@ -1,12 +1,20 @@
-import React from 'react';
-import Tooltip from '@material-ui/core/Tooltip';
-import { Paper, makeStyles, createStyles } from '@material-ui/core';
+import React, { useState, useCallback, useMemo } from 'react';
+import { Paper, makeStyles, createStyles, Fade } from '@material-ui/core';
 import FadeImage from '../fadeImage';
 import PhotoData from '../../services/flicker/types/photo';
+import { MasnoryImage } from '../masonry/masonryImage';
+import { Item } from '../masonry/item';
+import faker from 'faker';
+import { useDebounce, useTimeout, useTimeoutFn } from 'react-use';
 
 const useStyles = makeStyles(
   createStyles({
+    wrapper: {
+      position: 'absolute',
+    },
     root: {
+      position: 'relative',
+      width: '100%',
       padding: '2px',
     },
     paper: {
@@ -25,21 +33,60 @@ const useStyles = makeStyles(
 
 interface Props {
   photo: PhotoData;
+  isVisible: boolean;
 }
 
-const Photo: React.FC<Props> = ({ photo }) => {
+interface MasnoryItemProps {
+  isStable: boolean;
+}
+
+const fallbackPhoto = {
+  src: 'https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg',
+  alt: '404'
+};
+
+const Photo: React.FC<Props> = (({ photo, isVisible }) => {
   const classes = useStyles();
-  const { title } = photo;
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [useFallback, setUseFallback] = useState(false);
+  const onLoad = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+  const onError = useCallback(() => {
+    setUseFallback(true);
+  }, []);
+
+  const src = useFallback ? fallbackPhoto.src : photo.regularUrl;
+  const alt = photo.title;
+
+
+  const color = useMemo(() => faker.internet.color(), []);
+  const [show, setShow] = useState(false);
+
+  useDebounce(() => {
+    if (isLoaded) {
+      setShow(true);
+    }
+  }, 150, [isLoaded]);
 
   return (
-    <div className={classes.root}>
-      <Tooltip title={title}>
-        <Paper className={classes.paper} >
-          <FadeImage alt={title} className={classes.image} src={photo.regularUrl} />
+    <Item isStable={isLoaded}>
+      {/* <Fade in> */}
+      <div className={classes.root}>
+        <Paper style={{
+          backgroundColor: color,
+        }} className={classes.paper} >
+          <Fade in={show}>
+            <div >
+              <MasnoryImage onError={onError} onLoad={onLoad} src={src} alt={alt} />
+            </div>
+          </Fade>
         </Paper>
-      </Tooltip>
-    </div>
+        <b>{alt}</b>
+      </div>
+      {/* </Fade> */}
+    </Item>
   );
-}
+});
 
 export default Photo;

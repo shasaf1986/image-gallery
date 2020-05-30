@@ -26,7 +26,6 @@ const useStyles = makeStyles(
 const PhotoGallery: React.FC = () => {
   const { isAdvancedMode, isLoading } = useSelector((state: AppState) => state.photos);
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <Typography className={classes.header} align={'center'} variant="h3">
@@ -36,7 +35,7 @@ const PhotoGallery: React.FC = () => {
       {!isAdvancedMode && <Search />}
       <SwithMode />
       <PhotoGrid />
-      {isLoading && <Spinner />}
+      {/* {isLoading && <Spinner />} */}
     </div>
   );
 }

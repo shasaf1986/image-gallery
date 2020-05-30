@@ -8,7 +8,6 @@ import searchPhotos from '../services/flicker/api/searchPhotos';
 import { photosLoaded, photosLoadedFailed } from '../store/photos/actions';
 import { AppState } from '../store';
 import CachedPhotos from '../services/cachedPhotos/cachedPhotos';
-import preloadImages from '../utils/preLoadImages';
 import { Task } from '@redux-saga/core';
 
 export default function* photosSaga() {
@@ -76,8 +75,6 @@ function* loadPhotos(tags: string[], page: number, tagMode: 'any' | 'all') {
     }
   }
 
-  const urls = photosResult!.photos.map(photo => photo.regularUrl);
-  yield call(preloadImages, urls);
   yield put(photosLoaded({
     photosResult: photosResult!,
     tagMode,
