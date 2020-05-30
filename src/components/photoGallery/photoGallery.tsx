@@ -3,7 +3,6 @@ import Search from '../search';
 import PhotoGrid from '../photoGrid';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../store';
-import Spinner from '../spinner';
 import { makeStyles, createStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 import SwithMode from '../switchMode';
@@ -18,18 +17,18 @@ const useStyles = makeStyles(
       fontFamily: 'Sans-Serif',
       fontWeight: 'bold',
       paddingBottom: '10px',
-      textShadow: '0 1px 0 rgba(255, 255, 255, 0.4)'
-    }
-  }),
+      textShadow: '0 1px 0 rgba(255, 255, 255, 0.4)',
+    },
+  })
 );
 
 const PhotoGallery: React.FC = () => {
-  const { isAdvancedMode, isLoading } = useSelector((state: AppState) => state.photos);
+  const { isAdvancedMode } = useSelector((state: AppState) => state.photos);
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Typography className={classes.header} align={'center'} variant="h3">
-        {"Image Gallery"}
+        {'Image Gallery'}
       </Typography>
       {isAdvancedMode && <AdvancedSearch />}
       {!isAdvancedMode && <Search />}
@@ -38,6 +37,6 @@ const PhotoGallery: React.FC = () => {
       {/* {isLoading && <Spinner />} */}
     </div>
   );
-}
+};
 
 export default PhotoGallery;

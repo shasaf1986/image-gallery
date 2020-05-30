@@ -1,3 +1,3 @@
-import AdvancedSearch from "./advancedSearch";
+import AdvancedSearch from './advancedSearch';
 
 export default AdvancedSearch;

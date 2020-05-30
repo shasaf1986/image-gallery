@@ -10,7 +10,7 @@ const useStyles = makeStyles(
     root: {
       padding: '5px 0',
     },
-  }),
+  })
 );
 
 const SwithMode: React.FC = () => {
@@ -37,6 +37,6 @@ const SwithMode: React.FC = () => {
       </FormGroup>
     </div>
   );
-}
+};
 
 export default SwithMode;

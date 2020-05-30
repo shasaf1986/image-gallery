@@ -3,4 +3,4 @@ export default interface Page {
   pages: number;
   perPage: number;
   total: number;
-};
+}

@@ -1,4 +1,4 @@
-import Page from "../types/page";
+import Page from '../types/page';
 
 export default function parsePage(json: any): Page {
   return {

@@ -6,4 +6,4 @@ export default interface Photo {
   farm: number;
   id: string;
   regularUrl: string;
-};
+}

@@ -1,3 +1,3 @@
-import PhotoGrid from "./photoGrid";
+import PhotoGrid from './photoGrid';
 
 export default PhotoGrid;

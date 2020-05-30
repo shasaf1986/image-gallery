@@ -1,6 +1,6 @@
-import baseService from "./baseService";
-import parsePhotosResult from "../parsers/parsePhotosResult";
-import SearchPhotosOptions from "../types/searchPhotosOptions";
+import baseService from './baseService';
+import parsePhotosResult from '../parsers/parsePhotosResult';
+import SearchPhotosOptions from '../types/searchPhotosOptions';
 
 export default async function searchPhotos({
   contentType = '1',

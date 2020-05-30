@@ -1,13 +1,18 @@
 import React from 'react';
-import { CircularProgress, makeStyles, createStyles, Box } from '@material-ui/core';
+import {
+  CircularProgress,
+  makeStyles,
+  createStyles,
+  Box,
+} from '@material-ui/core';
 
 const useStyles = makeStyles(
   createStyles({
     root: {
       padding: '5px 0',
-      width: '100%'
-    }
-  }),
+      width: '100%',
+    },
+  })
 );
 
 const Spinner: React.FC = () => {
@@ -18,6 +23,6 @@ const Spinner: React.FC = () => {
       <CircularProgress />
     </Box>
   );
-}
+};
 
 export default Spinner;

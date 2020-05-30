@@ -1,3 +1,5 @@
 import React from 'react';
 
-export const ImageRatiosContext = React.createContext(new Map<string, number>());
+export const ImageRatiosContext = React.createContext(
+  new Map<string, number>()
+);

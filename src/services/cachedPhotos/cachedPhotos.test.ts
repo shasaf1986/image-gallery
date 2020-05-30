@@ -1,5 +1,5 @@
-import CachedPhotos from "./cachedPhotos";
-import PhotosResult from "../flicker/types/photosResult";
+import CachedPhotos from './cachedPhotos';
+import PhotosResult from '../flicker/types/photosResult';
 
 describe('cached photos', () => {
   const prefixKey = 'TEST_CACHED_IMAGES';
@@ -29,7 +29,5 @@ describe('cached photos', () => {
     cachedPhotos.setPhotosResult(tags, tagMode, page, photosResult);
     const savedData = cachedPhotos.getPhotosResult(tags, tagMode, page);
     expect(savedData !== null).toEqual(true);
-
   });
-
 });

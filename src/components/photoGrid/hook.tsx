@@ -10,7 +10,10 @@ const ro = new ResizeObserver((entries) => {
   });
 });
 
-function register(target: Element, subscriber: (rect: DOMRectReadOnly) => void) {
+function register(
+  target: Element,
+  subscriber: (rect: DOMRectReadOnly) => void
+) {
   subscribets.set(target, subscriber);
   ro.observe(target);
 
@@ -20,7 +23,10 @@ function register(target: Element, subscriber: (rect: DOMRectReadOnly) => void) 
   };
 }
 
-export type ContentRect = Pick<DOMRectReadOnly, 'x' | 'y' | 'top' | 'left' | 'right' | 'bottom' | 'height' | 'width'>;
+export type ContentRect = Pick<
+  DOMRectReadOnly,
+  'x' | 'y' | 'top' | 'left' | 'right' | 'bottom' | 'height' | 'width'
+>;
 
 export function useMeasure<T extends Element = any>() {
   const ref = useRef<T | null>(null);
@@ -43,6 +49,6 @@ export function useMeasure<T extends Element = any>() {
   }, []);
 
   return { ref, rect };
-};
+}
 
 export default useMeasure;

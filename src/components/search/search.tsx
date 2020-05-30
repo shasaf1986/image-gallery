@@ -18,8 +18,8 @@ const useStyles = makeStyles(
     input: {
       display: 'block',
       width: '100%',
-    }
-  }),
+    },
+  })
 );
 
 const Search: React.FC = () => {
@@ -34,15 +34,17 @@ const Search: React.FC = () => {
         value={query}
         onChange={(event) => {
           const { value } = event.target;
-          dispatch(freeTextSearchPhotos({
-            query: value,
-          }));
+          dispatch(
+            freeTextSearchPhotos({
+              query: value,
+            })
+          );
         }}
         className={classes.input}
       />
       <SearchIcon />
     </Paper>
   );
-}
+};
 
 export default Search;

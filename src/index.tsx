@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 import App from './components/app';
 import * as serviceWorker from './serviceWorker';
 import createStore from './store';
@@ -10,9 +10,11 @@ import { setPreviousQueries } from './store/photos/actions';
 const initialQueries = CachedPhotos.instance.getCachedQueries();
 const store = createStore();
 
-store.dispatch(setPreviousQueries({
-  previousQueries: initialQueries,
-}));
+store.dispatch(
+  setPreviousQueries({
+    previousQueries: initialQueries,
+  })
+);
 
 const Root = () => (
   <Provider store={store}>

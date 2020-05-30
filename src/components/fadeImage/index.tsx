@@ -1,3 +1,3 @@
-import FadeImage from "./fadeImage";
+import FadeImage from './fadeImage';
 
 export default FadeImage;

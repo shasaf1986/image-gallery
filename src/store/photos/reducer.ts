@@ -1,9 +1,16 @@
 import {
-  PhotosState, PhotosActionTypes,
-  PHOTOS_LOADED, LOAD_MORE_PHOTOS, SET_PREVIOUS_QUERIES,
-  TOGGLE_ADVANCED_MODE, SelectedQuery,
-  TOGGLE_QUERY, TOGGLE_CONDITION, FREE_TEXT_SEARCH_PHOTOS, PHOTOS_LOADED_FAILED,
-} from "./types";
+  PhotosState,
+  PhotosActionTypes,
+  PHOTOS_LOADED,
+  LOAD_MORE_PHOTOS,
+  SET_PREVIOUS_QUERIES,
+  TOGGLE_ADVANCED_MODE,
+  SelectedQuery,
+  TOGGLE_QUERY,
+  TOGGLE_CONDITION,
+  FREE_TEXT_SEARCH_PHOTOS,
+  PHOTOS_LOADED_FAILED,
+} from './types';
 
 const initialState: PhotosState = {
   previousQueries: [],
@@ -38,8 +45,9 @@ export default function photosReducer(
       // if its only single query and not empty and not in list
       if (tags.length === 1 && tags[0].trim().length > 0) {
         const query = tags[0];
-        const selectedQuery = state.previousQueries
-          .find((selectedQuery) => selectedQuery.query === query);
+        const selectedQuery = state.previousQueries.find(
+          (selectedQuery) => selectedQuery.query === query
+        );
         if (!selectedQuery) {
           // add new prev query
           previousQueries = [
@@ -57,10 +65,7 @@ export default function photosReducer(
         lastPage: page.page,
         hasMore: page.page < page.pages,
         previousQueries,
-        photos: [
-          ...state.photos,
-          ...photos,
-        ],
+        photos: [...state.photos, ...photos],
       };
     }
     case LOAD_MORE_PHOTOS: {
@@ -84,8 +89,9 @@ export default function photosReducer(
       };
     }
     case TOGGLE_QUERY: {
-      const previousQueryIndex = state.previousQueries
-        .findIndex((previousQuery) => previousQuery.query === action.payload.query);
+      const previousQueryIndex = state.previousQueries.findIndex(
+        (previousQuery) => previousQuery.query === action.payload.query
+      );
       const previousQuery = state.previousQueries[previousQueryIndex];
 
       return {
@@ -101,8 +107,8 @@ export default function photosReducer(
             isSelected: !previousQuery.isSelected,
           },
           ...state.previousQueries.slice(previousQueryIndex + 1),
-        ]
-      }
+        ],
+      };
     }
     case TOGGLE_ADVANCED_MODE: {
       // clean state when changed
@@ -111,7 +117,7 @@ export default function photosReducer(
         isAdvancedMode: !state.isAdvancedMode,
         isLoading: false,
         isAndCondition: true,
-        previousQueries: state.previousQueries.map(previousQuery => ({
+        previousQueries: state.previousQueries.map((previousQuery) => ({
           ...previousQuery,
           isSelected: false,
         })),

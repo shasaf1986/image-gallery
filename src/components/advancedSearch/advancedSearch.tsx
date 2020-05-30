@@ -1,8 +1,14 @@
 import React from 'react';
 import {
-  Paper, makeStyles, createStyles,
-  FormLabel, FormControl, FormGroup,
-  Checkbox, FormControlLabel, RadioGroup,
+  Paper,
+  makeStyles,
+  createStyles,
+  FormLabel,
+  FormControl,
+  FormGroup,
+  Checkbox,
+  FormControlLabel,
+  RadioGroup,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../store';
@@ -18,22 +24,23 @@ const useStyles = makeStyles(
       padding: '8px',
       overflowY: 'auto',
       maxHeight: '400px',
-    }
-  }),
+    },
+  })
 );
-
 
 const AdvancedSearch: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { previousQueries, isAndCondition } = useSelector((state: AppState) => state.photos);
+  const { previousQueries, isAndCondition } = useSelector(
+    (state: AppState) => state.photos
+  );
 
   return (
-    <Paper className={classes.root} >
+    <Paper className={classes.root}>
       <div className={classes.overflowContainer}>
         <FormControl fullWidth component="fieldset">
           <FormLabel component="legend">Condition</FormLabel>
-          <RadioGroup row value={isAndCondition ? "and" : "or"}>
+          <RadioGroup row value={isAndCondition ? 'and' : 'or'}>
             <ConditionRadio isAndCondition />
             <ConditionRadio isAndCondition={false} />
           </RadioGroup>
@@ -41,28 +48,26 @@ const AdvancedSearch: React.FC = () => {
         <FormControl fullWidth component="fieldset">
           <FormLabel component="legend">Queries</FormLabel>
           <FormGroup row>
-            {
-              previousQueries.map(({ isSelected, query }) => (
-                <FormControlLabel
-                  key={query}
-                  control={
-                    <Checkbox
-                      onChange={() => {
-                        dispatch(toggleQuery({ query }));
-                      }}
-                      color='primary'
-                      checked={isSelected}
-                    />
-                  }
-                  label={query}
-                />
-              ))
-            }
+            {previousQueries.map(({ isSelected, query }) => (
+              <FormControlLabel
+                key={query}
+                control={
+                  <Checkbox
+                    onChange={() => {
+                      dispatch(toggleQuery({ query }));
+                    }}
+                    color="primary"
+                    checked={isSelected}
+                  />
+                }
+                label={query}
+              />
+            ))}
           </FormGroup>
         </FormControl>
       </div>
     </Paper>
   );
-}
+};
 
 export default AdvancedSearch;

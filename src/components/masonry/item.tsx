@@ -1,8 +1,6 @@
-import React, { FC, useContext, useEffect, useRef, useState } from 'react';
+import React, { FC, useContext, useEffect, useRef } from 'react';
 // import useMeasure from '../photoGrid/hook';
-import { useUpdateEffect, useDebounce, useMeasure } from 'react-use';
 import { MasonryItemContext } from './masonry';
-import { ItemIndexContext } from './itemIndexContext';
 import ResizeObserver from 'resize-observer-polyfill';
 export interface ItemProps {
   isStable: boolean;
@@ -15,7 +13,14 @@ export function useUpdatedRef<T>(value: T) {
 }
 
 export const Item: FC<ItemProps> = ({ children, isStable }) => {
-  const { index, offsetLeft, offsetTop, width, isVisible, onItemResize } = useContext(MasonryItemContext);
+  const {
+    index,
+    offsetLeft,
+    offsetTop,
+    width,
+    isVisible,
+    onItemResize,
+  } = useContext(MasonryItemContext);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -42,7 +47,7 @@ export const Item: FC<ItemProps> = ({ children, isStable }) => {
         position: 'absolute',
         width,
         transform: `translate(${offsetLeft}px, ${offsetTop}px)`,
-        visibility: isVisible ? undefined : 'hidden'
+        visibility: isVisible ? undefined : 'hidden',
       }}
       ref={ref}
     >
@@ -50,4 +55,3 @@ export const Item: FC<ItemProps> = ({ children, isStable }) => {
     </div>
   );
 };
-

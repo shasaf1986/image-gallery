@@ -1,3 +1,3 @@
-import ConditionRadio from "./conditionRadion";
+import ConditionRadio from './conditionRadion';
 
 export default ConditionRadio;

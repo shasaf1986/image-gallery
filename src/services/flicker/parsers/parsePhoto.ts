@@ -1,5 +1,5 @@
-import Photo from "../types/photo";
-import getPhotoUrl from "../utils/getPhotoUrl";
+import Photo from '../types/photo';
+import getPhotoUrl from '../utils/getPhotoUrl';
 
 export default function parsePhoto(json: any): Photo {
   const farm: number = json.farm;
@@ -20,6 +20,6 @@ export default function parsePhoto(json: any): Photo {
       id,
       server,
       secret,
-    })
+    }),
   };
 }

@@ -1,3 +1,3 @@
-import SwithMode from "./switchMode";
+import SwithMode from './switchMode';
 
 export default SwithMode;

@@ -12,19 +12,19 @@ const ConditionRadio: React.FC<Props> = ({ isAndCondition }) => {
 
   return (
     <FormControlLabel
-      value={isAndCondition ? "and" : "or"}
+      value={isAndCondition ? 'and' : 'or'}
       control={
         <Radio
           onChange={() => {
-            dispatch(toggleCondition())
+            dispatch(toggleCondition());
           }}
           color="primary"
         />
       }
-      label={isAndCondition ? "AND" : "OR"}
+      label={isAndCondition ? 'AND' : 'OR'}
       color="primary"
     />
   );
-}
+};
 
 export default ConditionRadio;

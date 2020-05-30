@@ -1,7 +1,7 @@
-import CachedPhotosResult from "./types/cachedPhotosResult";
-import PhotosResult from "../flicker/types/photosResult";
+import CachedPhotosResult from './types/cachedPhotosResult';
+import PhotosResult from '../flicker/types/photosResult';
 import moment from 'moment';
-import { TagMode } from "../flicker/types/searchPhotosOptions";
+import { TagMode } from '../flicker/types/searchPhotosOptions';
 
 interface Options {
   maxEntries?: number;
@@ -15,9 +15,14 @@ export default class CachedPhotos {
   }
 
   private readonly _prefixKey: string;
+
   // add limit for entries since localstorage is limited
   private readonly _maxEntries: number;
-  private readonly _cachedPhotosResultMap: Map<string, CachedPhotosResult> = new Map();
+
+  private readonly _cachedPhotosResultMap: Map<
+    string,
+    CachedPhotosResult
+  > = new Map();
 
   constructor({
     maxEntries = 1000,
@@ -36,7 +41,9 @@ export default class CachedPhotos {
   private getKey(tags: string[], tagMode: string, page: number) {
     // if its only one query than the tag is not relevant
     const effectiveTagMode = tagMode.length === 1 ? 'all' : tagMode;
-    return `${this._prefixKey}_TAGS=${tags.join('|')}_MODE=${effectiveTagMode}_PAGE=${page}`;
+    return `${this._prefixKey}_TAGS=${tags.join(
+      '|'
+    )}_MODE=${effectiveTagMode}_PAGE=${page}`;
   }
 
   getPhotosResult(tags: string[], tagMode: 'any' | 'all', page: number) {
@@ -66,7 +73,12 @@ export default class CachedPhotos {
     }
   }
 
-  setPhotosResult(tags: string[], tagMode: TagMode, page: number, photosResult: PhotosResult) {
+  setPhotosResult(
+    tags: string[],
+    tagMode: TagMode,
+    page: number,
+    photosResult: PhotosResult
+  ) {
     const key = this.getKey(tags, tagMode, page);
     const cachedPhotosResult: CachedPhotosResult = {
       photosResult,
@@ -80,17 +92,21 @@ export default class CachedPhotos {
   }
 
   getCachedQueries() {
-    const cachedPhotosResultMapByQuery: Map<string, CachedPhotosResult> = new Map();
+    const cachedPhotosResultMapByQuery: Map<
+      string,
+      CachedPhotosResult
+    > = new Map();
 
-    this._cachedPhotosResultMap.forEach((cachedPhotosResult, key) => {
+    this._cachedPhotosResultMap.forEach((cachedPhotosResult) => {
       if (cachedPhotosResult.tags.length !== 1) {
         return;
       }
       const query = cachedPhotosResult.tags[0];
-      const prevCachedPhotosResult = cachedPhotosResultMapByQuery.get(query)
+      const prevCachedPhotosResult = cachedPhotosResultMapByQuery.get(query);
       if (prevCachedPhotosResult) {
-        const isNewer = moment(cachedPhotosResult.createdDate)
-          .isAfter(prevCachedPhotosResult.createdDate);
+        const isNewer = moment(cachedPhotosResult.createdDate).isAfter(
+          prevCachedPhotosResult.createdDate
+        );
         if (isNewer) {
           cachedPhotosResultMapByQuery.set(query, cachedPhotosResult);
         }
@@ -99,12 +115,17 @@ export default class CachedPhotos {
       }
     });
 
-    return Array.from(cachedPhotosResultMapByQuery.values()).sort((cachedPhotosResultA, cachedPhotosResultB) => {
-      if (moment(cachedPhotosResultA.createdDate).isBefore(cachedPhotosResultB.createdDate)) {
-        return 1;
-      }
-      return -1;
-    }).map((cachedPhotosResult) => cachedPhotosResult.tags[0]);
+    return Array.from(cachedPhotosResultMapByQuery.values())
+      .sort((cachedPhotosResultA, cachedPhotosResultB) => {
+        if (
+          moment(cachedPhotosResultA.createdDate).isBefore(
+            cachedPhotosResultB.createdDate
+          )
+        ) {
+          return 1;
+        }
+        return -1;
+      })
+      .map((cachedPhotosResult) => cachedPhotosResult.tags[0]);
   }
 }
-

@@ -1,15 +1,15 @@
-import Photo from "../../services/flicker/types/photo";
-import PhotosResult from "../../services/flicker/types/photosResult";
-import { TagMode } from "../../services/flicker/types/searchPhotosOptions";
+import Photo from '../../services/flicker/types/photo';
+import PhotosResult from '../../services/flicker/types/photosResult';
+import { TagMode } from '../../services/flicker/types/searchPhotosOptions';
 
-export const FREE_TEXT_SEARCH_PHOTOS = "FREE_TEXT_SEARCH_PHOTOS";
-export const LOAD_MORE_PHOTOS = "LOAD_MORE_PHOTOS";
-export const PHOTOS_LOADED = "PHOTOS_LOADED";
-export const SET_PREVIOUS_QUERIES = "SET_PREVIOUS_QUERIES";
-export const TOGGLE_ADVANCED_MODE = "TOGGLE_ADVANCED_MODE";
-export const TOGGLE_QUERY = "TOGGLE_QUERY";
-export const TOGGLE_CONDITION = "TOGGLE_CONDITION";
-export const PHOTOS_LOADED_FAILED = "PHOTOS_LOADED_FAILED";
+export const FREE_TEXT_SEARCH_PHOTOS = 'FREE_TEXT_SEARCH_PHOTOS';
+export const LOAD_MORE_PHOTOS = 'LOAD_MORE_PHOTOS';
+export const PHOTOS_LOADED = 'PHOTOS_LOADED';
+export const SET_PREVIOUS_QUERIES = 'SET_PREVIOUS_QUERIES';
+export const TOGGLE_ADVANCED_MODE = 'TOGGLE_ADVANCED_MODE';
+export const TOGGLE_QUERY = 'TOGGLE_QUERY';
+export const TOGGLE_CONDITION = 'TOGGLE_CONDITION';
+export const PHOTOS_LOADED_FAILED = 'PHOTOS_LOADED_FAILED';
 
 export interface ToggleQueryPayload {
   query: string;
@@ -81,6 +81,12 @@ export interface PhotosState {
   isAndCondition: boolean;
 }
 
-export type PhotosActionTypes = FreeTextSearchPhotosAction | PhotosLoadedAction
-  | LoadMorePhotosAction | SetPreviousQueriesAction | ToggleAdvancedModeAction |
-  ToggleQueryAction | ToggleConditionAction | PhotosLoadedFailedAction;
+export type PhotosActionTypes =
+  | FreeTextSearchPhotosAction
+  | PhotosLoadedAction
+  | LoadMorePhotosAction
+  | SetPreviousQueriesAction
+  | ToggleAdvancedModeAction
+  | ToggleQueryAction
+  | ToggleConditionAction
+  | PhotosLoadedFailedAction;

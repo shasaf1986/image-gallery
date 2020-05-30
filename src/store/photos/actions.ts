@@ -1,7 +1,12 @@
 import {
-  FreeTextSearchPayload, FreeTextSearchPhotosAction, FREE_TEXT_SEARCH_PHOTOS,
-  PhotosLoadedAction, PHOTOS_LOADED, LoadMorePhotosAction,
-  LOAD_MORE_PHOTOS, SET_PREVIOUS_QUERIES,
+  FreeTextSearchPayload,
+  FreeTextSearchPhotosAction,
+  FREE_TEXT_SEARCH_PHOTOS,
+  PhotosLoadedAction,
+  PHOTOS_LOADED,
+  LoadMorePhotosAction,
+  LOAD_MORE_PHOTOS,
+  SET_PREVIOUS_QUERIES,
   SetPreviousQueriesAction,
   SetPreviousQueriesPayload,
   PhotosLoadedPayload,
@@ -13,31 +18,37 @@ import {
   ToggleConditionAction,
   TOGGLE_CONDITION,
   PhotosLoadedFailedAction,
-  PHOTOS_LOADED_FAILED
-} from "./types";
+  PHOTOS_LOADED_FAILED,
+} from './types';
 
-export function freeTextSearchPhotos(payload: FreeTextSearchPayload): FreeTextSearchPhotosAction {
+export function freeTextSearchPhotos(
+  payload: FreeTextSearchPayload
+): FreeTextSearchPhotosAction {
   return {
     type: FREE_TEXT_SEARCH_PHOTOS,
     payload,
   };
 }
 
-export function photosLoaded(payload?: PhotosLoadedPayload): PhotosLoadedAction {
-  // creates an empty payload in 
-  const effectivePayload: PhotosLoadedPayload = payload ? payload : {
-    photosResult: {
-      photos: [],
-      page: {
-        page: 1,
-        pages: 1,
-        perPage: 0,
-        total: 0,
-      }
-    },
-    tagMode: 'all',
-    tags: [],
-  };
+export function photosLoaded(
+  payload?: PhotosLoadedPayload
+): PhotosLoadedAction {
+  // creates an empty payload in
+  const effectivePayload: PhotosLoadedPayload = payload
+    ? payload
+    : {
+        photosResult: {
+          photos: [],
+          page: {
+            page: 1,
+            pages: 1,
+            perPage: 0,
+            total: 0,
+          },
+        },
+        tagMode: 'all',
+        tags: [],
+      };
 
   return {
     type: PHOTOS_LOADED,
@@ -51,10 +62,12 @@ export function loadMorePhotos(): LoadMorePhotosAction {
   };
 }
 
-export function setPreviousQueries(payload: SetPreviousQueriesPayload): SetPreviousQueriesAction {
+export function setPreviousQueries(
+  payload: SetPreviousQueriesPayload
+): SetPreviousQueriesAction {
   return {
     type: SET_PREVIOUS_QUERIES,
-    payload
+    payload,
   };
 }
 
