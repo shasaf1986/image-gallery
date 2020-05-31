@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "pull-env": "rm -rf .env && yarn vercel env pull",
     "start": "next dev",
     "build": "next build",
     "lint": "yarn lint:nofix --fix",
+    "deploy": "vercel deploy --prod",
     "postlint:nofix": "yarn type-check",
     "lint:nofix": "eslint . --ext .js,.jsx,.ts,.tsx",
     "type-check": "tsc --noEmit"
