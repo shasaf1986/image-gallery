@@ -8,9 +8,12 @@ interface Options {
   prefixKey?: string;
 }
 export default class CachedPhotos {
-  private static _instance: CachedPhotos = new CachedPhotos();
+  private static _instance?: CachedPhotos;
 
   static get instance() {
+    if (!this._instance) {
+      this._instance = new CachedPhotos();
+    }
     return this._instance;
   }
 

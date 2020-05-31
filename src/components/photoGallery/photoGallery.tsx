@@ -4,7 +4,7 @@ import PhotoGrid from '../photoGrid';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../store';
 import { makeStyles, createStyles } from '@material-ui/styles';
-import { Typography } from '@material-ui/core';
+import { Typography, NoSsr } from '@material-ui/core';
 import SwithMode from '../switchMode';
 import AdvancedSearch from '../advancedSearch';
 
@@ -33,8 +33,9 @@ const PhotoGallery: React.FC = () => {
       {isAdvancedMode && <AdvancedSearch />}
       {!isAdvancedMode && <Search />}
       <SwithMode />
-      <PhotoGrid />
-      {/* {isLoading && <Spinner />} */}
+      <NoSsr>
+        <PhotoGrid />
+      </NoSsr>
     </div>
   );
 };

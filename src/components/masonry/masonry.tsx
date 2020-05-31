@@ -214,6 +214,7 @@ export const Masonry: FC<MasonryProps> = ({
   ]);
 
   const updateLayout = useDebounceCallback(() => {
+    console.log('update');
     const rowHeights = Array.from({ length: numberOfRows }, () => 0);
     itemOffsets.clear();
     let stop = false;

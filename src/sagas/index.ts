@@ -3,5 +3,7 @@ import photosSaga from './photosSaga';
 
 // Register all your watchers
 export default function* rootSaga() {
-  yield all([fork(photosSaga)]);
+  if (process.browser) {
+    yield all([fork(photosSaga)]);
+  }
 }

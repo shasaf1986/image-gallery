@@ -1,5 +1,4 @@
 import React, { FC, useContext, useEffect, useRef } from 'react';
-// import useMeasure from '../photoGrid/hook';
 import { MasonryItemContext } from './masonry';
 import ResizeObserver from 'resize-observer-polyfill';
 export interface ItemProps {

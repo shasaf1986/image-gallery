@@ -2,6 +2,14 @@
   "name": "image-gallery",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "next dev",
+    "build": "next build",
+    "lint": "yarn lint:nofix --fix",
+    "postlint:nofix": "yarn type-check",
+    "lint:nofix": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "type-check": "tsc --noEmit"
+  },
   "dependencies": {
     "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
@@ -16,6 +24,7 @@
     "faker": "^4.1.0",
     "lodash": "^4.17.15",
     "moment": "^2.26.0",
+    "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -27,31 +36,6 @@
     "redux-saga": "^1.0.5",
     "resize-observer-polyfill": "^1.5.1",
     "typescript": "3.9.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "yarn lint:nofix --fix",
-    "postlint:nofix": "yarn type-check",
-    "lint:nofix": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "type-check": "tsc --noEmit"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@types/faker": "^4.1.12",
