@@ -177,7 +177,6 @@ export const Masonry: FC<MasonryProps> = ({
       },
       []
     );
-
     const lodaMore = rowHeights.some((rowHeight) => rowHeight < max + 500);
     if (lodaMore) {
       newItemsToRender = Array.from({ length }).reduce<number[]>(
@@ -187,7 +186,7 @@ export const Masonry: FC<MasonryProps> = ({
 
           if (itemOffset === undefined || itemHeight === undefined) {
             limit++;
-            if (limit > 50) {
+            if (limit > 20) {
               return acc;
             }
             return [...acc, index];
@@ -307,6 +306,7 @@ export const Masonry: FC<MasonryProps> = ({
       if (prevHeight === height) {
         return;
       }
+      console.log(index, height);
       itemHeights.set(index, height);
       updateLayout();
     },
@@ -344,6 +344,7 @@ export const Masonry: FC<MasonryProps> = ({
       ro.disconnect();
     };
   }, []);
+  console.log(itemsToRenderRef.current);
 
   // useEffect(() => { }, [item]);
 
