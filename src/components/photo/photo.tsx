@@ -27,6 +27,11 @@ const useStyles = makeStyles(
       // same as paper
       borderRadius: '4px',
     },
+    text: {
+      overflowWrap: 'break-word',
+      wordWrap: 'break-word',
+      hyphens: 'auto',
+    },
   })
 );
 
@@ -89,9 +94,8 @@ const Photo: React.FC<Props> = ({ photo }) => {
             </div>
           </Fade>
         </Paper>
-        <b>{alt}</b>
+        <b className={classes.text}>{alt}</b>
       </div>
-      {/* </Fade> */}
     </Item>
   );
 };
