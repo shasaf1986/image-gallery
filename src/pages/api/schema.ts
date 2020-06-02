@@ -16,7 +16,17 @@ export const typeDefs = gql`
     photos: [Photo!]!
   }
 
+  enum Operator {
+    AND
+    OR
+  }
+
   type Query {
-    photos(query: [String!]!, perPage: Int, page: Int): Photos!
+    photos(
+      query: [String!]!
+      perPage: Int
+      page: Int
+      operator: Operator
+    ): Photos!
   }
 `;

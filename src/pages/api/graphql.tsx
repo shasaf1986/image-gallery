@@ -5,11 +5,12 @@ import searchPhotos from '../../services/flicker/api/searchPhotos';
 
 const resolvers: Resolvers = {
   Query: {
-    photos: async (_, { query, page, perPage }) => {
+    photos: async (_, { query, page, perPage, operator }) => {
       const photosResult = await searchPhotos({
         tags: query,
         perPage: perPage || undefined,
         page: page || undefined,
+        tagMode: operator ? (operator === 'AND' ? 'all' : 'any') : undefined,
       });
       return {
         page: {
