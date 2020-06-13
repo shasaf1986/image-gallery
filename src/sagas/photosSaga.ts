@@ -16,11 +16,12 @@ import {
   FREE_TEXT_SEARCH_PHOTOS,
   FreeTextSearchPhotosAction,
 } from '../store/photos/types';
-import searchPhotos from '../services/flicker/api/searchPhotos';
 import { photosLoaded, photosLoadedFailed } from '../store/photos/actions';
 import { AppState } from '../store';
 import CachedPhotos from '../services/cachedPhotos/cachedPhotos';
 import { Task } from 'redux-saga';
+import { graphqlClient } from '../services/graphql';
+import { GetPhotosQuery } from '../pages/api/generated/graphql';
 
 export default function* photosSaga() {
   while (true) {
@@ -80,14 +81,31 @@ function* loadPhotos(tags: string[], page: number, tagMode: 'any' | 'all') {
 
   let photosResult = CachedPhotos.instance.getPhotosResult(tags, tagMode, page);
   // not cached
-  if (photosResult === null) {
+  if (!photosResult) {
     try {
-      photosResult = yield call(searchPhotos, {
-        tags,
-        tagMode,
-        page,
+      const result: GetPhotosQuery = yield call(graphqlClient.getPhotos, {
+        query: tags,
+        page: page,
+        operator: tagMode === 'any' ? 'OR' : 'AND',
       });
-      CachedPhotos.instance.setPhotosResult(tags, tagMode, page, photosResult!);
+      photosResult = {
+        page: {
+          page: result.photos.page.page,
+          pages: result.photos.page.pages,
+          perPage: 0,
+          total: 0,
+        },
+        photos: result.photos.photos.map((v) => ({
+          farm: 0,
+          id: v.src,
+          owner: '',
+          title: v.title,
+          regularUrl: v.src,
+          server: '',
+          secret: '',
+        })),
+      };
+      CachedPhotos.instance.setPhotosResult(tags, tagMode, page, photosResult);
     } catch (error) {
       // something went wrong
       yield put(photosLoadedFailed());
