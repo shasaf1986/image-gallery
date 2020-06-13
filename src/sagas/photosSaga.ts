@@ -80,6 +80,7 @@ function* loadPhotos(tags: string[], page: number, tagMode: 'any' | 'all') {
   }
 
   let photosResult = CachedPhotos.instance.getPhotosResult(tags, tagMode, page);
+  photosResult = null;
   // not cached
   if (!photosResult) {
     try {

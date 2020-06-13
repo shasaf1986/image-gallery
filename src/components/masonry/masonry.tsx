@@ -278,26 +278,31 @@ export const Masonry: FC<MasonryProps> = ({
     if (!hasMore || !canLoadMore) {
       return;
     }
-    const dispose = (() => {
-      let prevScrollY = window.scrollY;
-      const onScroll = () => {
-        const { scrollY, innerHeight } = window;
-        const height = document.documentElement.offsetHeight;
-        const isDown = scrollY > prevScrollY;
-        if (isDown && scrollY + 1000 >= height - innerHeight) {
-          console.log('load more');
-          onLoadMoreRef.current();
-          dispose();
-        }
-        prevScrollY = scrollY;
-      };
-      window.addEventListener('scroll', onScroll);
+    let isDisposed = false;
+    let prevScrollY = window.scrollY;
+    const updateScroll = (force: boolean = false) => {
+      if (isDisposed) {
+        return;
+      }
+      const { scrollY, innerHeight } = window;
+      const height = document.documentElement.offsetHeight;
+      const isDown = scrollY > prevScrollY;
+      if ((force || isDown) && scrollY + 1000 >= height - innerHeight) {
+        isDisposed = true;
+        onLoadMoreRef.current();
+      }
+      prevScrollY = scrollY;
+    };
+    const onScroll = () => {
+      updateScroll();
+    };
 
-      return () => {
-        window.removeEventListener('scroll', onScroll);
-      };
-    })();
-    return dispose;
+    window.addEventListener('scroll', onScroll);
+    updateScroll(true);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
   }, [hasMore, onLoadMoreRef, canLoadMore]);
 
   const onItemResize = useCallback(
